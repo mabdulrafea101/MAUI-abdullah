@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="UnitenStudentAssistant.Views.HomePage"
+             Title="Home">
+    <VerticalStackLayout Padding="16" Spacing="12">
+        <Label Text="Home: coming soon" Style="{StaticResource CaptionLabel}" />
+        <!-- TEMPORARY until Task 6 -->
+        <Button Text="Programmes (temporary)" Clicked="OnProgrammesClicked" />
+        <Button Text="Calendar (temporary)" Clicked="OnCalendarClicked" />
+    </VerticalStackLayout>
+</ContentPage>
+

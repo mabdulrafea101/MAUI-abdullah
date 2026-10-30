@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="UnitenStudentAssistant.Views.SplashPage"
+             BackgroundColor="{StaticResource Navy}"
+             Shell.NavBarIsVisible="False">
+    <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="16">
+        <Image Source="logo_u.png" WidthRequest="120" HeightRequest="120" HorizontalOptions="Center" />
+        <Label Text="UNITEN Student Assistant" Style="{StaticResource TitleLabel}"
+               TextColor="White" HorizontalOptions="Center" />
+        <Label Text="Your campus, in your pocket" Style="{StaticResource CaptionLabel}"
+               TextColor="White" Opacity="0.8" HorizontalOptions="Center" />
+        <ActivityIndicator IsRunning="True" Color="White" HorizontalOptions="Center" Margin="0,8,0,0" />
+    </VerticalStackLayout>
+</ContentPage>
+

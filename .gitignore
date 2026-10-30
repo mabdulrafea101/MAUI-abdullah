@@ -1,0 +1,48 @@
+# .NET and MAUI build outputs
+**/bin/
+**/obj/
+**/AppPackages/
+**/TestResults/
+
+# Android / Mobile packages and signing keys
+*.apk
+*.aab
+*.keystore
+*.jks
+.gradle/
+
+# Visual Studio & IDEs
+**/.vs/
+*.user
+*.suo
+*.userosscache
+*.userprefs
+*.sln.docstates
+.idea/
+*.swp
+*~
+
+# Secrets: NEVER commit
+**/secrets.json
+**/secrets*.json
+!**/secrets.sample.json
+google-services.json
+**/google-services.json
+GoogleService-Info.plist
+**/GoogleService-Info.plist
+
+# Documents, PDFs, and HTML exports
+*.pdf
+*.html
+*.docx
+*.doc
+*.pptx
+*.xlsx
+
+# OS-generated & logs
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+.DS_Store
+*.log
