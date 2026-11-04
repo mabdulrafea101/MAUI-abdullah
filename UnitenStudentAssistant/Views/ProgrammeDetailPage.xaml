@@ -3,8 +3,38 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="UnitenStudentAssistant.Views.ProgrammeDetailPage"
              Title="Programme">
-    <VerticalStackLayout Padding="16" Spacing="12">
-        <Label Text="Programme: coming soon" Style="{StaticResource CaptionLabel}" />
-    </VerticalStackLayout>
-</ContentPage>
+    <Grid>
+        <ScrollView>
+            <VerticalStackLayout Padding="16" Spacing="12">
+                <Label x:Name="NameLabel" Style="{StaticResource TitleLabel}" />
+                <Label x:Name="FacultyLabel" Style="{StaticResource CaptionLabel}" />
 
+                <Border Style="{StaticResource CardBorder}">
+                    <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto"
+                          ColumnSpacing="16" RowSpacing="8">
+                        <Label Text="Duration" Style="{StaticResource CaptionLabel}" />
+                        <Label x:Name="DurationLabel" Grid.Column="1" Style="{StaticResource BodyLabel}" />
+                        <Label Text="Faculty" Grid.Row="1" Style="{StaticResource CaptionLabel}" />
+                        <Label x:Name="FacultyValueLabel" Grid.Row="1" Grid.Column="1"
+                               Style="{StaticResource BodyLabel}" />
+                    </Grid>
+                </Border>
+
+                <Label Text="About this programme" Style="{StaticResource SubtitleLabel}" />
+                <Label x:Name="DescriptionLabel" Style="{StaticResource BodyLabel}" />
+
+                <Label Text="Majors / specialisations" Style="{StaticResource SubtitleLabel}" />
+                <VerticalStackLayout x:Name="MajorsList" Spacing="4">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate x:DataType="x:String">
+                            <Label Text="{Binding StringFormat='• {0}'}" Style="{StaticResource BodyLabel}" />
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </VerticalStackLayout>
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <ActivityIndicator x:Name="Loading" IsRunning="False" IsVisible="False"
+                           HorizontalOptions="Center" VerticalOptions="Center" />
+    </Grid>
+</ContentPage>

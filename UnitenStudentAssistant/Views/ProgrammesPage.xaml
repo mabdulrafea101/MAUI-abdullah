@@ -1,10 +1,37 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:UnitenStudentAssistant.Models"
              x:Class="UnitenStudentAssistant.Views.ProgrammesPage"
              Title="Programmes">
-    <VerticalStackLayout Padding="16" Spacing="12">
-        <Label Text="Programmes: coming soon" Style="{StaticResource CaptionLabel}" />
-    </VerticalStackLayout>
+    <Grid RowDefinitions="Auto,*" Padding="16" RowSpacing="12">
+        <SearchBar x:Name="ProgrammeSearch" Placeholder="Search programmes"
+                   TextChanged="OnSearchTextChanged" />
+        <ActivityIndicator x:Name="Loading" Grid.Row="1" IsRunning="False" IsVisible="False"
+                           VerticalOptions="Start" />
+        <CollectionView x:Name="ProgrammeList" Grid.Row="1">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical" ItemSpacing="12" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.EmptyView>
+                <Label Text="No programmes match your search." Style="{StaticResource CaptionLabel}"
+                       HorizontalOptions="Center" Margin="0,24" />
+            </CollectionView.EmptyView>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:Programme">
+                    <Border Style="{StaticResource CardBorder}">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnProgrammeTapped" />
+                        </Border.GestureRecognizers>
+                        <VerticalStackLayout Spacing="4">
+                            <Label Text="{Binding Name}" Style="{StaticResource SubtitleLabel}" />
+                            <Label Text="{Binding Faculty}" Style="{StaticResource CaptionLabel}" />
+                            <Label Text="{Binding Duration}" Style="{StaticResource CaptionLabel}"
+                                   TextColor="{StaticResource UnitenBlue}" />
+                        </VerticalStackLayout>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
 </ContentPage>
-
