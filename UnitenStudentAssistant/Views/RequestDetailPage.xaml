@@ -3,8 +3,41 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="UnitenStudentAssistant.Views.RequestDetailPage"
              Title="Request">
-    <VerticalStackLayout Padding="16" Spacing="12">
-        <Label Text="Request: coming soon" Style="{StaticResource CaptionLabel}" />
-    </VerticalStackLayout>
-</ContentPage>
+    <ScrollView>
+        <VerticalStackLayout Padding="16" Spacing="12">
+            <Label x:Name="RequestNoLabel" Text="Loading…" Style="{StaticResource TitleLabel}" />
 
+            <!-- Large status pill -->
+            <Border x:Name="StatusBadge" Style="{StaticResource StatusPill}"
+                    Padding="14,6" HorizontalOptions="Start">
+                <Label x:Name="StatusLabel" Style="{StaticResource SmallLabel}" FontSize="13" />
+            </Border>
+
+            <Label x:Name="SubjectLabel" Style="{StaticResource SubtitleLabel}" />
+
+            <Border Style="{StaticResource CardBorder}">
+                <VerticalStackLayout Spacing="12">
+                    <VerticalStackLayout Spacing="4">
+                        <Label Text="Service" Style="{StaticResource CaptionLabel}" />
+                        <Label x:Name="ServiceLabel" Style="{StaticResource BodyLabel}" />
+                    </VerticalStackLayout>
+                    <VerticalStackLayout Spacing="4">
+                        <Label Text="Submitted" Style="{StaticResource CaptionLabel}" />
+                        <Label x:Name="CreatedLabel" Style="{StaticResource BodyLabel}" />
+                    </VerticalStackLayout>
+                    <VerticalStackLayout Spacing="4">
+                        <Label Text="Last updated" Style="{StaticResource CaptionLabel}" />
+                        <Label x:Name="UpdatedLabel" Style="{StaticResource BodyLabel}" />
+                    </VerticalStackLayout>
+                    <VerticalStackLayout Spacing="4">
+                        <Label Text="Details" Style="{StaticResource CaptionLabel}" />
+                        <Label x:Name="DetailsLabel" Style="{StaticResource BodyLabel}" />
+                    </VerticalStackLayout>
+                </VerticalStackLayout>
+            </Border>
+
+            <Label Text="Status updates automatically." Style="{StaticResource CaptionLabel}"
+                   HorizontalOptions="Center" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

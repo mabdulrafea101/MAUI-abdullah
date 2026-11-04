@@ -1,10 +1,48 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:UnitenStudentAssistant.Models"
              x:Class="UnitenStudentAssistant.Views.RequestTrackingPage"
              Title="Track requests">
-    <VerticalStackLayout Padding="16" Spacing="12">
-        <Label Text="Track requests: coming soon" Style="{StaticResource CaptionLabel}" />
-    </VerticalStackLayout>
-</ContentPage>
+    <Grid RowDefinitions="Auto,*" Padding="16" RowSpacing="12">
 
+        <!-- Three buttons that act as a segmented control -->
+        <Grid ColumnDefinitions="*,*,*" ColumnSpacing="8">
+            <Button x:Name="PendingButton" Style="{StaticResource SegmentButton}" Clicked="OnPendingClicked" />
+            <Button x:Name="ProgressButton" Grid.Column="1" Style="{StaticResource SegmentButton}" Clicked="OnProgressClicked" />
+            <Button x:Name="CompletedButton" Grid.Column="2" Style="{StaticResource SegmentButton}" Clicked="OnCompletedClicked" />
+        </Grid>
+
+        <CollectionView x:Name="RequestList" Grid.Row="1">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical" ItemSpacing="12" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.EmptyView>
+                <Label x:Name="EmptyListLabel" Style="{StaticResource CaptionLabel}"
+                       HorizontalOptions="Center" Margin="0,24" />
+            </CollectionView.EmptyView>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:ServiceRequest">
+                    <Border Style="{StaticResource CardBorder}">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnRequestTapped" />
+                        </Border.GestureRecognizers>
+                        <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto,Auto" RowSpacing="4">
+                            <Label Text="{Binding RequestNo}" Style="{StaticResource StrongLabel}"
+                                   VerticalOptions="Center" />
+                            <Border Grid.Column="1" Style="{StaticResource StatusPill}"
+                                    BackgroundColor="{Binding StatusBgColor}">
+                                <Label Text="{Binding Status}" Style="{StaticResource SmallLabel}"
+                                       TextColor="{Binding StatusTextColor}" />
+                            </Border>
+                            <Label Grid.Row="1" Grid.ColumnSpan="2" Text="{Binding Subject}"
+                                   Style="{StaticResource BodyLabel}" />
+                            <Label Grid.Row="2" Grid.ColumnSpan="2" Text="{Binding CreatedText}"
+                                   Style="{StaticResource CaptionLabel}" />
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+</ContentPage>
