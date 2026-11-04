@@ -1,10 +1,56 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:UnitenStudentAssistant.Models"
              x:Class="UnitenStudentAssistant.Views.AiAssistantPage"
              Title="AI assistant">
-    <VerticalStackLayout Padding="16" Spacing="12">
-        <Label Text="AI assistant: coming soon" Style="{StaticResource CaptionLabel}" />
-    </VerticalStackLayout>
-</ContentPage>
+    <Grid RowDefinitions="*,Auto,Auto,Auto">
 
+        <!-- Chat bubbles -->
+        <CollectionView x:Name="ChatList" Margin="16,16,16,0">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical" ItemSpacing="8" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:ChatMessage">
+                    <Grid>
+                        <Border Style="{StaticResource ChatBubble}"
+                                HorizontalOptions="{Binding Side}"
+                                BackgroundColor="{Binding BubbleColor}">
+                            <Label Text="{Binding Text}" Style="{StaticResource BodyLabel}"
+                                   TextColor="{Binding TextColor}" />
+                        </Border>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <!-- Visible only while waiting for Gemini -->
+        <HorizontalStackLayout x:Name="ThinkingRow" Grid.Row="1" Padding="16,4" Spacing="8" IsVisible="False">
+            <ActivityIndicator IsRunning="True" WidthRequest="20" HeightRequest="20" />
+            <Label Text="Thinking…" Style="{StaticResource CaptionLabel}" VerticalOptions="Center" />
+        </HorizontalStackLayout>
+
+        <!-- Suggestion chips: shown only while the chat holds just the welcome bubble -->
+        <ScrollView x:Name="ChipRow" Grid.Row="2" Orientation="Horizontal"
+                    HorizontalScrollBarVisibility="Never">
+            <HorizontalStackLayout Padding="16,8" Spacing="8">
+                <Button Text="When does the semester start?" Style="{StaticResource ChipButton}" Clicked="OnChipClicked" />
+                <Button Text="How do I contact Finance?" Style="{StaticResource ChipButton}" Clicked="OnChipClicked" />
+                <Button Text="Which programmes are offered?" Style="{StaticResource ChipButton}" Clicked="OnChipClicked" />
+            </HorizontalStackLayout>
+        </ScrollView>
+
+        <!-- Input bar -->
+        <VerticalStackLayout Grid.Row="3" BackgroundColor="{StaticResource CardBg}">
+            <BoxView Style="{StaticResource Divider}" />
+            <Grid ColumnDefinitions="*,72" ColumnSpacing="8" Padding="16,8">
+                <Entry x:Name="QuestionEntry" Placeholder="Ask about UNITEN…" ReturnType="Send"
+                       Completed="OnQuestionCompleted" VerticalOptions="Center" />
+                <Button x:Name="SendButton" Grid.Column="1" Text="Send" Style="{StaticResource PrimaryButton}"
+                        Padding="0" Clicked="OnSendClicked" />
+            </Grid>
+        </VerticalStackLayout>
+
+    </Grid>
+</ContentPage>
