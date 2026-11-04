@@ -1,10 +1,45 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:UnitenStudentAssistant.Models"
              x:Class="UnitenStudentAssistant.Views.ServiceRequestsPage"
              Title="Requests">
-    <VerticalStackLayout Padding="16" Spacing="12">
-        <Label Text="Requests: coming soon" Style="{StaticResource CaptionLabel}" />
-    </VerticalStackLayout>
-</ContentPage>
+    <ScrollView>
+        <VerticalStackLayout Padding="16" Spacing="12">
+            <Button Text="+ New Request" Style="{StaticResource PrimaryButton}" Clicked="OnNewRequestClicked" />
+            <Button Text="Track my requests" Style="{StaticResource SecondaryButton}" Clicked="OnTrackClicked" />
 
+            <Label Text="Recent requests" Style="{StaticResource SubtitleLabel}" Margin="0,8,0,0" />
+            <ActivityIndicator x:Name="Loading" IsRunning="False" IsVisible="False" />
+
+            <!-- BindableLayout, not CollectionView, because we are inside a ScrollView -->
+            <VerticalStackLayout x:Name="RecentList" Spacing="12">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate x:DataType="models:ServiceRequest">
+                        <Border Style="{StaticResource CardBorder}">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnRecentTapped" />
+                            </Border.GestureRecognizers>
+                            <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto,Auto" RowSpacing="4">
+                                <Label Text="{Binding RequestNo}" Style="{StaticResource StrongLabel}"
+                                       VerticalOptions="Center" />
+                                <Border Grid.Column="1" Style="{StaticResource StatusPill}"
+                                        BackgroundColor="{Binding StatusBgColor}">
+                                    <Label Text="{Binding Status}" Style="{StaticResource SmallLabel}"
+                                           TextColor="{Binding StatusTextColor}" />
+                                </Border>
+                                <Label Grid.Row="1" Grid.ColumnSpan="2" Text="{Binding Subject}"
+                                       Style="{StaticResource BodyLabel}" />
+                                <Label Grid.Row="2" Grid.ColumnSpan="2" Text="{Binding CreatedText}"
+                                       Style="{StaticResource CaptionLabel}" />
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </VerticalStackLayout>
+
+            <Label x:Name="EmptyLabel" Text="You have no requests yet." Style="{StaticResource CaptionLabel}"
+                   HorizontalOptions="Center" IsVisible="False" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
