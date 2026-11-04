@@ -6,7 +6,7 @@ namespace UnitenStudentAssistant.Helpers;
 public class AppSecrets
 {
     public string GeminiApiKey { get; set; } = "";
-    public string GeminiModel { get; set; } = "gemini-3.8-flash";
+    public string GeminiModel { get; set; } = "gemma-4-26b-a4b-it";
 
     // False when secrets.json is missing or still holds the sample text
     public bool HasKey => GeminiApiKey != "" && GeminiApiKey != "PASTE-YOUR-KEY-HERE";
@@ -28,7 +28,7 @@ public static class AppConfig
             cached = new AppSecrets
             {
                 GeminiApiKey = ReadString(doc.RootElement, "GeminiApiKey", ""),
-                GeminiModel = ReadString(doc.RootElement, "GeminiModel", "gemini-3.8-flash")
+                GeminiModel = ReadString(doc.RootElement, "GeminiModel", "gemma-4-26b-a4b-it")
             };
         }
         catch (Exception ex)
