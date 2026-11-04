@@ -38,3 +38,4 @@ public static class AiPromptBuilder
         return text.ToString();
     }
 }
+

@@ -99,3 +99,4 @@ public static class GeminiService
         return "no details";
     }
 }
+
