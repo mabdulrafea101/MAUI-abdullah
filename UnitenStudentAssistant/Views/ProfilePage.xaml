@@ -3,8 +3,42 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="UnitenStudentAssistant.Views.ProfilePage"
              Title="Profile">
-    <VerticalStackLayout Padding="16" Spacing="12">
-        <Label Text="Profile: coming soon" Style="{StaticResource CaptionLabel}" />
-    </VerticalStackLayout>
-</ContentPage>
+    <ScrollView>
+        <VerticalStackLayout Padding="16" Spacing="12">
 
+            <!-- Navy circle with the initials -->
+            <Border BackgroundColor="{StaticResource Navy}" StrokeThickness="0"
+                    StrokeShape="RoundRectangle 40" WidthRequest="80" HeightRequest="80"
+                    HorizontalOptions="Center" Margin="0,8,0,0">
+                <Label x:Name="InitialsLabel" Text="?" Style="{StaticResource AvatarLabel}" />
+            </Border>
+            <Label x:Name="NameLabel" Text="Loading…" Style="{StaticResource TitleLabel}"
+                   HorizontalOptions="Center" />
+            <Label x:Name="StudentIdLabel" Style="{StaticResource CaptionLabel}"
+                   HorizontalOptions="Center" />
+
+            <Border Style="{StaticResource CardBorder}">
+                <VerticalStackLayout Spacing="12">
+                    <VerticalStackLayout Spacing="4">
+                        <Label Text="Programme" Style="{StaticResource CaptionLabel}" />
+                        <Label x:Name="ProgrammeLabel" Style="{StaticResource BodyLabel}" />
+                    </VerticalStackLayout>
+                    <BoxView Style="{StaticResource Divider}" />
+                    <VerticalStackLayout Spacing="4">
+                        <Label Text="Email" Style="{StaticResource CaptionLabel}" />
+                        <Label x:Name="EmailLabel" Style="{StaticResource BodyLabel}" />
+                    </VerticalStackLayout>
+                    <BoxView Style="{StaticResource Divider}" />
+                    <VerticalStackLayout Spacing="4">
+                        <Label Text="Phone" Style="{StaticResource CaptionLabel}" />
+                        <Label x:Name="PhoneLabel" Style="{StaticResource BodyLabel}" />
+                    </VerticalStackLayout>
+                </VerticalStackLayout>
+            </Border>
+
+            <Button Text="Edit profile" Style="{StaticResource SecondaryButton}" Clicked="OnEditClicked" />
+            <Button Text="About this app" Style="{StaticResource SecondaryButton}" Clicked="OnAboutClicked" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

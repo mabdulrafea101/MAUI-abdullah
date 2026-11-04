@@ -3,8 +3,55 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="UnitenStudentAssistant.Views.EditProfilePage"
              Title="Edit profile">
-    <VerticalStackLayout Padding="16" Spacing="12">
-        <Label Text="Edit profile: coming soon" Style="{StaticResource CaptionLabel}" />
-    </VerticalStackLayout>
-</ContentPage>
+    <ScrollView>
+        <VerticalStackLayout Padding="16" Spacing="16">
 
+            <VerticalStackLayout Spacing="4">
+                <Label Text="Name" Style="{StaticResource CaptionLabel}" />
+                <Border Style="{StaticResource InputBorder}">
+                    <Entry x:Name="NameEntry" Placeholder="Your full name" MaxLength="60" />
+                </Border>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Spacing="4">
+                <Label Text="Student ID" Style="{StaticResource CaptionLabel}" />
+                <Border Style="{StaticResource InputBorder}">
+                    <Entry x:Name="StudentIdEntry" IsReadOnly="True"
+                           TextColor="{StaticResource TextMuted}" />
+                </Border>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Spacing="4">
+                <Label Text="Programme" Style="{StaticResource CaptionLabel}" />
+                <Border Style="{StaticResource InputBorder}">
+                    <Picker x:Name="ProgrammePicker" Title="Choose your programme" />
+                </Border>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Spacing="4">
+                <Label Text="Email" Style="{StaticResource CaptionLabel}" />
+                <Border Style="{StaticResource InputBorder}">
+                    <Entry x:Name="EmailEntry" Keyboard="Email" Placeholder="name@student.uniten.edu.my" />
+                </Border>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Spacing="4">
+                <Label Text="Phone" Style="{StaticResource CaptionLabel}" />
+                <Border Style="{StaticResource InputBorder}">
+                    <Entry x:Name="PhoneEntry" Keyboard="Telephone" Placeholder="012-345 6789" MaxLength="20" />
+                </Border>
+            </VerticalStackLayout>
+
+            <Label x:Name="ValidationLabel" Style="{StaticResource ErrorLabel}" />
+
+            <Grid ColumnDefinitions="*,Auto" ColumnSpacing="12">
+                <Button x:Name="SaveButton" Text="Save changes" Style="{StaticResource PrimaryButton}"
+                        Clicked="OnSaveClicked" />
+                <ActivityIndicator x:Name="Saving" Grid.Column="1" IsRunning="False" IsVisible="False"
+                                   WidthRequest="24" HeightRequest="24" VerticalOptions="Center" />
+            </Grid>
+            <Button Text="Cancel" Style="{StaticResource SecondaryButton}" Clicked="OnCancelClicked" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

@@ -3,8 +3,45 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="UnitenStudentAssistant.Views.AboutPage"
              Title="About">
-    <VerticalStackLayout Padding="16" Spacing="12">
-        <Label Text="About: coming soon" Style="{StaticResource CaptionLabel}" />
-    </VerticalStackLayout>
-</ContentPage>
+    <ScrollView>
+        <VerticalStackLayout Padding="16" Spacing="12">
 
+            <!-- Logo on a navy rounded square -->
+            <Border BackgroundColor="{StaticResource Navy}" StrokeThickness="0"
+                    StrokeShape="RoundRectangle 24" WidthRequest="96" HeightRequest="96"
+                    HorizontalOptions="Center" Margin="0,8,0,0">
+                <Image Source="logo_u.png" WidthRequest="72" HeightRequest="72"
+                       HorizontalOptions="Center" VerticalOptions="Center" />
+            </Border>
+
+            <Label Text="UNITEN Student Assistant" Style="{StaticResource TitleLabel}"
+                   HorizontalOptions="Center" />
+            <Label x:Name="VersionLabel" Style="{StaticResource CaptionLabel}"
+                   HorizontalOptions="Center" />
+
+            <Border Style="{StaticResource CardBorder}">
+                <Label Style="{StaticResource BodyLabel}"
+                       Text="A simple mobile app that helps UNITEN students find programmes, check the academic calendar, contact university services, submit and track service requests, and ask an AI assistant." />
+            </Border>
+
+            <Border Style="{StaticResource CardBorder}">
+                <VerticalStackLayout Spacing="12">
+                    <VerticalStackLayout Spacing="4">
+                        <Label Text="Developer" Style="{StaticResource CaptionLabel}" />
+                        <Label Text="Abdullah (is01084960)" Style="{StaticResource BodyLabel}" />
+                    </VerticalStackLayout>
+                    <BoxView Style="{StaticResource Divider}" />
+                    <VerticalStackLayout Spacing="4">
+                        <Label Text="Course" Style="{StaticResource CaptionLabel}" />
+                        <Label Text="CSNB5123" Style="{StaticResource BodyLabel}" />
+                    </VerticalStackLayout>
+                </VerticalStackLayout>
+            </Border>
+
+            <Label Text="Built with .NET MAUI, Firebase Firestore and Google Gemini."
+                   Style="{StaticResource CaptionLabel}" HorizontalOptions="Center"
+                   HorizontalTextAlignment="Center" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
