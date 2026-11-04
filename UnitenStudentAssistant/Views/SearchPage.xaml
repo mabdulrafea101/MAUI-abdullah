@@ -1,10 +1,86 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:UnitenStudentAssistant.Models"
              x:Class="UnitenStudentAssistant.Views.SearchPage"
              Title="Search">
-    <VerticalStackLayout Padding="16" Spacing="12">
-        <Label Text="Search: coming soon" Style="{StaticResource CaptionLabel}" />
-    </VerticalStackLayout>
-</ContentPage>
+    <Grid RowDefinitions="Auto,*" Padding="16" RowSpacing="12">
+        <SearchBar x:Name="SearchInput" Placeholder="Search programmes, services and dates"
+                   TextChanged="OnSearchTextChanged" />
 
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Spacing="12">
+                <Label x:Name="MessageLabel" Style="{StaticResource CaptionLabel}"
+                       HorizontalOptions="Center" Margin="0,24" />
+
+                <!-- Programmes -->
+                <Label x:Name="ProgrammesHeading" Text="Programmes" Style="{StaticResource SubtitleLabel}"
+                       IsVisible="False" />
+                <VerticalStackLayout x:Name="ProgrammeResults" Spacing="12">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate x:DataType="models:Programme">
+                            <Border Style="{StaticResource CardBorder}">
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnProgrammeTapped" />
+                                </Border.GestureRecognizers>
+                                <VerticalStackLayout Spacing="4">
+                                    <Label Text="{Binding Name}" Style="{StaticResource StrongLabel}" />
+                                    <Label Text="{Binding Faculty}" Style="{StaticResource CaptionLabel}" />
+                                </VerticalStackLayout>
+                            </Border>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </VerticalStackLayout>
+
+                <!-- Services -->
+                <Label x:Name="ServicesHeading" Text="Services" Style="{StaticResource SubtitleLabel}"
+                       IsVisible="False" />
+                <VerticalStackLayout x:Name="ServiceResults" Spacing="12">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate x:DataType="models:UniService">
+                            <Border Style="{StaticResource CardBorder}">
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnServiceTapped" />
+                                </Border.GestureRecognizers>
+                                <VerticalStackLayout Spacing="4">
+                                    <Label Text="{Binding Name}" Style="{StaticResource StrongLabel}" />
+                                    <Label Text="{Binding Description}" Style="{StaticResource CaptionLabel}"
+                                           MaxLines="2" LineBreakMode="TailTruncation" />
+                                </VerticalStackLayout>
+                            </Border>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </VerticalStackLayout>
+
+                <!-- Calendar -->
+                <Label x:Name="EventsHeading" Text="Calendar" Style="{StaticResource SubtitleLabel}"
+                       IsVisible="False" />
+                <VerticalStackLayout x:Name="EventResults" Spacing="12">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate x:DataType="models:CalendarEvent">
+                            <Border Style="{StaticResource CardBorder}">
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnEventTapped" />
+                                </Border.GestureRecognizers>
+                                <Grid ColumnDefinitions="48,*" ColumnSpacing="12">
+                                    <VerticalStackLayout VerticalOptions="Center">
+                                        <Label Text="{Binding DayText}" Style="{StaticResource DateDayLabel}" />
+                                        <Label Text="{Binding MonthText}" Style="{StaticResource CaptionLabel}"
+                                               HorizontalOptions="Center" />
+                                    </VerticalStackLayout>
+                                    <VerticalStackLayout Grid.Column="1" Spacing="2" VerticalOptions="Center">
+                                        <Label Text="{Binding Title}" Style="{StaticResource StrongLabel}" />
+                                        <Label Text="{Binding DateText}" Style="{StaticResource CaptionLabel}" />
+                                    </VerticalStackLayout>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </VerticalStackLayout>
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <ActivityIndicator x:Name="Loading" Grid.Row="1" IsRunning="False" IsVisible="False"
+                           VerticalOptions="Start" />
+    </Grid>
+</ContentPage>
