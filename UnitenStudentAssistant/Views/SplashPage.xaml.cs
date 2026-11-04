@@ -1,3 +1,6 @@
+using System.Diagnostics;
+using UnitenStudentAssistant.Services;
+
 namespace UnitenStudentAssistant.Views;
 
 public partial class SplashPage : ContentPage
@@ -17,7 +20,12 @@ public partial class SplashPage : ContentPage
 
         try
         {
-            await Task.Delay(2000);
+            Task seeding = SeedDataService.SeedIfEmptyAsync();   // never throws: errors are caught inside
+            Task minimumTime = Task.Delay(2000);                 // show the logo for at least 2 s
+            Task maximumTime = Task.Delay(8000);                 // never wait longer than 8 s
+
+            await Task.WhenAny(seeding, maximumTime);
+            await minimumTime;
 
             MainThread.BeginInvokeOnMainThread(async () =>
             {
@@ -36,14 +44,14 @@ public partial class SplashPage : ContentPage
                 }
                 catch (Exception ex)
                 {
-                    System.Diagnostics.Debug.WriteLine($"AppShell creation error: {ex}");
+                    Debug.WriteLine($"AppShell creation error: {ex}");
                     await DisplayAlertAsync("Startup Error", $"Could not load AppShell: {ex.Message}", "OK");
                 }
             });
         }
         catch (Exception ex)
         {
-            System.Diagnostics.Debug.WriteLine($"Splash error: {ex}");
+            Debug.WriteLine($"Splash error: {ex}");
             await DisplayAlertAsync("Splash Error", ex.Message, "OK");
         }
     }
