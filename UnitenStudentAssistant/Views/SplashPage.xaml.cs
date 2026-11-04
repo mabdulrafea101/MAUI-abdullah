@@ -20,12 +20,9 @@ public partial class SplashPage : ContentPage
 
         try
         {
-            Task seeding = SeedDataService.SeedIfEmptyAsync();   // never throws: errors are caught inside
-            Task minimumTime = Task.Delay(2000);                 // show the logo for at least 2 s
-            Task maximumTime = Task.Delay(8000);                 // never wait longer than 8 s
-
-            await Task.WhenAny(seeding, maximumTime);
-            await minimumTime;
+            // Seed the 5 collections on first run
+            await SeedDataService.SeedIfEmptyAsync();
+            await Task.Delay(1500);
 
             MainThread.BeginInvokeOnMainThread(async () =>
             {

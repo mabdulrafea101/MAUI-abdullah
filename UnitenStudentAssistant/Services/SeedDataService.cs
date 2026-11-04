@@ -105,8 +105,15 @@ public static class SeedDataService
         }
         catch (Exception ex)
         {
-            // No internet or expired rules: the app still opens, and each page shows its own error
+            // Show alert on screen if seeding fails so we can see the exact error
             Debug.WriteLine("Seeding failed: " + ex.Message);
+            MainThread.BeginInvokeOnMainThread(async () =>
+            {
+                if (Application.Current?.Windows.Count > 0 && Application.Current.Windows[0].Page != null)
+                {
+                    await Application.Current.Windows[0].Page!.DisplayAlertAsync("Seeding Error", ex.Message, "OK");
+                }
+            });
         }
     }
 
