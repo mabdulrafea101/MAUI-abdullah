@@ -2,12 +2,113 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="UnitenStudentAssistant.Views.HomePage"
-             Title="Home">
-    <VerticalStackLayout Padding="16" Spacing="12">
-        <Label Text="Home: coming soon" Style="{StaticResource CaptionLabel}" />
-        <!-- TEMPORARY until Task 6 -->
-        <Button Text="Programmes (temporary)" Clicked="OnProgrammesClicked" />
-        <Button Text="Calendar (temporary)" Clicked="OnCalendarClicked" />
-    </VerticalStackLayout>
-</ContentPage>
+             Title="Home"
+             Shell.NavBarIsVisible="False">
+    <ScrollView>
+        <VerticalStackLayout>
 
+            <!-- Navy banner: full width, outside the page padding -->
+            <VerticalStackLayout BackgroundColor="{StaticResource Navy}" Padding="16,24,16,16" Spacing="4">
+                <Label x:Name="GreetingLabel" Text="Hi" Style="{StaticResource TitleLabel}" TextColor="White" />
+                <Label x:Name="StudentInfoLabel" Style="{StaticResource CaptionLabel}"
+                       TextColor="White" Opacity="0.8" />
+                <Border Style="{StaticResource InputBorder}" Padding="0" Margin="0,12,0,0">
+                    <SearchBar x:Name="HomeSearch" Placeholder="Search UNITEN…"
+                               SearchButtonPressed="OnSearchButtonPressed" />
+                </Border>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Padding="16" Spacing="12">
+
+                <!-- 2 x 3 tiles -->
+                <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto,Auto" ColumnSpacing="12" RowSpacing="12">
+
+                    <Border Grid.Row="0" Grid.Column="0" Style="{StaticResource TileBorder}">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnProgrammesTapped" />
+                        </Border.GestureRecognizers>
+                        <VerticalStackLayout Spacing="4" VerticalOptions="Center">
+                            <Image Source="ic_programmes.png" WidthRequest="32" HeightRequest="32" HorizontalOptions="Start" />
+                            <Label Text="Programmes" Style="{StaticResource StrongLabel}" />
+                            <Label Text="Browse degrees" Style="{StaticResource CaptionLabel}"
+                                   MaxLines="1" LineBreakMode="TailTruncation" />
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <Border Grid.Row="0" Grid.Column="1" Style="{StaticResource TileBorder}">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnCalendarTapped" />
+                        </Border.GestureRecognizers>
+                        <VerticalStackLayout Spacing="4" VerticalOptions="Center">
+                            <Image Source="ic_calendar.png" WidthRequest="32" HeightRequest="32" HorizontalOptions="Start" />
+                            <Label Text="Calendar" Style="{StaticResource StrongLabel}" />
+                            <Label Text="Important dates" Style="{StaticResource CaptionLabel}"
+                                   MaxLines="1" LineBreakMode="TailTruncation" />
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <Border Grid.Row="1" Grid.Column="0" Style="{StaticResource TileBorder}">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnServicesTapped" />
+                        </Border.GestureRecognizers>
+                        <VerticalStackLayout Spacing="4" VerticalOptions="Center">
+                            <Image Source="ic_services.png" WidthRequest="32" HeightRequest="32" HorizontalOptions="Start" />
+                            <Label Text="Services" Style="{StaticResource StrongLabel}" />
+                            <Label Text="Offices and help" Style="{StaticResource CaptionLabel}"
+                                   MaxLines="1" LineBreakMode="TailTruncation" />
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <Border Grid.Row="1" Grid.Column="1" Style="{StaticResource TileBorder}">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnRequestsTapped" />
+                        </Border.GestureRecognizers>
+                        <VerticalStackLayout Spacing="4" VerticalOptions="Center">
+                            <Image Source="ic_requests.png" WidthRequest="32" HeightRequest="32" HorizontalOptions="Start" />
+                            <Label Text="Requests" Style="{StaticResource StrongLabel}" />
+                            <Label Text="Submit and track" Style="{StaticResource CaptionLabel}"
+                                   MaxLines="1" LineBreakMode="TailTruncation" />
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <Border Grid.Row="2" Grid.Column="0" Style="{StaticResource TileBorder}">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnAiTapped" />
+                        </Border.GestureRecognizers>
+                        <VerticalStackLayout Spacing="4" VerticalOptions="Center">
+                            <Image Source="ic_ai.png" WidthRequest="32" HeightRequest="32" HorizontalOptions="Start" />
+                            <Label Text="AI Assistant" Style="{StaticResource StrongLabel}" />
+                            <Label Text="Ask a question" Style="{StaticResource CaptionLabel}"
+                                   MaxLines="1" LineBreakMode="TailTruncation" />
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <Border Grid.Row="2" Grid.Column="1" Style="{StaticResource TileBorder}">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnSearchTapped" />
+                        </Border.GestureRecognizers>
+                        <VerticalStackLayout Spacing="4" VerticalOptions="Center">
+                            <Image Source="ic_search.png" WidthRequest="32" HeightRequest="32" HorizontalOptions="Start" />
+                            <Label Text="Search" Style="{StaticResource StrongLabel}" />
+                            <Label Text="Find anything" Style="{StaticResource CaptionLabel}"
+                                   MaxLines="1" LineBreakMode="TailTruncation" />
+                        </VerticalStackLayout>
+                    </Border>
+                </Grid>
+
+                <!-- Next up -->
+                <Label Text="Next up" Style="{StaticResource SubtitleLabel}" Margin="0,8,0,0" />
+                <Border Style="{StaticResource CardBorder}">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnNextUpTapped" />
+                    </Border.GestureRecognizers>
+                    <VerticalStackLayout Spacing="4">
+                        <Label x:Name="NextUpTitleLabel" Text="Loading…" Style="{StaticResource StrongLabel}" />
+                        <Label x:Name="NextUpDateLabel" Style="{StaticResource CaptionLabel}" />
+                    </VerticalStackLayout>
+                </Border>
+
+            </VerticalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
