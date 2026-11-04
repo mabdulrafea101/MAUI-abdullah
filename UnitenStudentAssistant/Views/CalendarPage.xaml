@@ -1,10 +1,53 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:UnitenStudentAssistant.Models"
+             xmlns:controls="clr-namespace:UnitenStudentAssistant.Controls"
              x:Class="UnitenStudentAssistant.Views.CalendarPage"
              Title="Academic calendar">
-    <VerticalStackLayout Padding="16" Spacing="12">
-        <Label Text="Academic calendar: coming soon" Style="{StaticResource CaptionLabel}" />
-    </VerticalStackLayout>
-</ContentPage>
+    <ScrollView>
+        <VerticalStackLayout Padding="16" Spacing="12">
+            <Label Text="Semester 1 2026/2027" Style="{StaticResource CaptionLabel}" />
 
+            <Border Style="{StaticResource CardBorder}">
+                <controls:CalendarMonthView x:Name="MonthView"
+                                            DateSelected="OnDateSelected"
+                                            MonthChanged="OnMonthChanged" />
+            </Border>
+
+            <Grid ColumnDefinitions="*,Auto">
+                <Label x:Name="ListTitleLabel" Text="Important dates" Style="{StaticResource SubtitleLabel}"
+                       VerticalOptions="Center" />
+                <Button x:Name="ShowAllButton" Grid.Column="1" Text="Show all" Style="{StaticResource LinkButton}"
+                         IsVisible="False" Clicked="OnShowAllClicked" />
+            </Grid>
+
+            <ActivityIndicator x:Name="Loading" IsRunning="False" IsVisible="False" />
+
+            <!-- BindableLayout, not CollectionView, because we are inside a ScrollView -->
+            <VerticalStackLayout x:Name="EventList" Spacing="12">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate x:DataType="models:CalendarEvent">
+                        <Border Style="{StaticResource CardBorder}">
+                            <Grid ColumnDefinitions="48,*" ColumnSpacing="12">
+                                <VerticalStackLayout VerticalOptions="Center">
+                                    <Label Text="{Binding DayText}" Style="{StaticResource DateDayLabel}" />
+                                    <Label Text="{Binding MonthText}" Style="{StaticResource SmallLabel}"
+                                           TextColor="{StaticResource TextMuted}" HorizontalOptions="Center" />
+                                </VerticalStackLayout>
+                                <VerticalStackLayout Grid.Column="1" Spacing="2" VerticalOptions="Center">
+                                    <Label Text="{Binding Title}" Style="{StaticResource StrongLabel}" />
+                                    <Label Text="{Binding TypeAndDescription}" Style="{StaticResource CaptionLabel}"
+                                           LineBreakMode="WordWrap" />
+                                </VerticalStackLayout>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </VerticalStackLayout>
+
+            <Label x:Name="EmptyLabel" Style="{StaticResource CaptionLabel}"
+                   HorizontalOptions="Center" IsVisible="False" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

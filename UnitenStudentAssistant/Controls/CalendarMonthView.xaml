@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="UnitenStudentAssistant.Controls.CalendarMonthView">
+    <VerticalStackLayout Spacing="8">
+        <!-- Row 0: ‹  October 2026  › -->
+        <Grid ColumnDefinitions="40,*,40">
+            <Button Text="‹" Style="{StaticResource CalendarNavButton}" Clicked="OnPreviousClicked" />
+            <Label x:Name="MonthLabel" Grid.Column="1" Style="{StaticResource SubtitleLabel}"
+                   HorizontalOptions="Center" VerticalOptions="Center" />
+            <Button Text="›" Grid.Column="2" Style="{StaticResource CalendarNavButton}" Clicked="OnNextClicked" />
+        </Grid>
+
+        <!-- Row 1: weekday names (the week starts on Sunday) -->
+        <Grid ColumnDefinitions="*,*,*,*,*,*,*">
+            <Label Grid.Column="0" Text="Sun" Style="{StaticResource SmallLabel}" TextColor="{StaticResource TextMuted}" HorizontalOptions="Center" />
+            <Label Grid.Column="1" Text="Mon" Style="{StaticResource SmallLabel}" TextColor="{StaticResource TextMuted}" HorizontalOptions="Center" />
+            <Label Grid.Column="2" Text="Tue" Style="{StaticResource SmallLabel}" TextColor="{StaticResource TextMuted}" HorizontalOptions="Center" />
+            <Label Grid.Column="3" Text="Wed" Style="{StaticResource SmallLabel}" TextColor="{StaticResource TextMuted}" HorizontalOptions="Center" />
+            <Label Grid.Column="4" Text="Thu" Style="{StaticResource SmallLabel}" TextColor="{StaticResource TextMuted}" HorizontalOptions="Center" />
+            <Label Grid.Column="5" Text="Fri" Style="{StaticResource SmallLabel}" TextColor="{StaticResource TextMuted}" HorizontalOptions="Center" />
+            <Label Grid.Column="6" Text="Sat" Style="{StaticResource SmallLabel}" TextColor="{StaticResource TextMuted}" HorizontalOptions="Center" />
+        </Grid>
+
+        <!-- Row 2: up to 6 weeks of day cells, filled in by BuildDays() -->
+        <Grid x:Name="DaysGrid"
+              ColumnDefinitions="*,*,*,*,*,*,*"
+              RowDefinitions="44,44,44,44,44,44"
+              ColumnSpacing="2" RowSpacing="2" />
+    </VerticalStackLayout>
+</ContentView>
