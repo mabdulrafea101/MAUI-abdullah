@@ -1,10 +1,35 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:UnitenStudentAssistant.Models"
              x:Class="UnitenStudentAssistant.Views.ServicesPage"
              Title="Services">
-    <VerticalStackLayout Padding="16" Spacing="12">
-        <Label Text="Services: coming soon" Style="{StaticResource CaptionLabel}" />
-    </VerticalStackLayout>
+    <Grid Padding="16">
+        <ActivityIndicator x:Name="Loading" IsRunning="False" IsVisible="False" VerticalOptions="Start" />
+        <CollectionView x:Name="ServiceList">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical" ItemSpacing="12" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:UniService">
+                    <Border Style="{StaticResource CardBorder}">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnServiceTapped" />
+                        </Border.GestureRecognizers>
+                        <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
+                            <Image Source="ic_services.png" WidthRequest="32" HeightRequest="32"
+                                   VerticalOptions="Center" />
+                            <VerticalStackLayout Grid.Column="1" Spacing="2" VerticalOptions="Center">
+                                <Label Text="{Binding Name}" Style="{StaticResource SubtitleLabel}" />
+                                <Label Text="{Binding Description}" Style="{StaticResource CaptionLabel}"
+                                       MaxLines="1" LineBreakMode="TailTruncation" />
+                            </VerticalStackLayout>
+                            <Label Grid.Column="2" Text="›" Style="{StaticResource SubtitleLabel}"
+                                   TextColor="{StaticResource TextMuted}" VerticalOptions="Center" />
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
 </ContentPage>
-

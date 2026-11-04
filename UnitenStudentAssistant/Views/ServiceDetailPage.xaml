@@ -3,8 +3,35 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="UnitenStudentAssistant.Views.ServiceDetailPage"
              Title="Service">
-    <VerticalStackLayout Padding="16" Spacing="12">
-        <Label Text="Service: coming soon" Style="{StaticResource CaptionLabel}" />
-    </VerticalStackLayout>
-</ContentPage>
+    <Grid>
+        <ScrollView>
+            <VerticalStackLayout Padding="16" Spacing="12">
+                <Label x:Name="NameLabel" Style="{StaticResource TitleLabel}" />
+                <Label x:Name="DescriptionLabel" Style="{StaticResource BodyLabel}" />
 
+                <Border Style="{StaticResource CardBorder}">
+                    <VerticalStackLayout Spacing="12">
+                        <VerticalStackLayout Spacing="4">
+                            <Label Text="Location" Style="{StaticResource CaptionLabel}" />
+                            <Label x:Name="LocationLabel" Style="{StaticResource BodyLabel}" />
+                        </VerticalStackLayout>
+                        <VerticalStackLayout Spacing="4">
+                            <Label Text="Hours" Style="{StaticResource CaptionLabel}" />
+                            <Label x:Name="HoursLabel" Style="{StaticResource BodyLabel}" />
+                        </VerticalStackLayout>
+                        <VerticalStackLayout Spacing="4">
+                            <Label Text="Contact" Style="{StaticResource CaptionLabel}" />
+                            <Label x:Name="ContactLabel" Style="{StaticResource BodyLabel}" />
+                        </VerticalStackLayout>
+                    </VerticalStackLayout>
+                </Border>
+
+                <Button x:Name="MakeRequestButton" Text="Make a request" Style="{StaticResource PrimaryButton}"
+                        IsEnabled="False" Clicked="OnMakeRequestClicked" Margin="0,12,0,0" />
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <ActivityIndicator x:Name="Loading" IsRunning="False" IsVisible="False"
+                           HorizontalOptions="Center" VerticalOptions="Center" />
+    </Grid>
+</ContentPage>
